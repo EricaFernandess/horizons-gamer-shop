@@ -6,8 +6,11 @@ game_service = GameService()
 
 @game_controller.route('/')
 def index():
-    return render_template('add_game.html')
+    return render_template('index.html')
 
+@game_controller.route('/add-game')
+def add_game():
+    return render_template('add_game.html')
 
 @game_controller.route('/register-game', methods=['POST'])
 def register_game():
