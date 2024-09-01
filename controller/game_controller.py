@@ -1,8 +1,13 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from service.game_service import GameService
 
 game_controller = Blueprint('game_controller', __name__)
 game_service = GameService()
+
+@game_controller.route('/')
+def index():
+    return render_template('add_game.html')
+
 
 @game_controller.route('/register-game', methods=['POST'])
 def register_game():
