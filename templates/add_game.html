@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Novo Jogo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #d9f4f3; /* Cor clara, semelhante ao fundo da imagem */
-            font-family: Arial, sans-serif;
-            color: #333;
+            background-color: #121212;
+            font-family: 'Fira Code', monospace;
+            color: #e0e0e0;
             margin: 0;
             padding: 0;
             display: flex;
@@ -17,9 +18,9 @@
 
         .sidebar {
             width: 250px;
-            background-color: #4f9b6e; /* Cor de fundo do sidebar */
+            background-color: #1a1a2e;
             padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
             position: fixed;
             height: 100vh;
             top: 0;
@@ -28,49 +29,53 @@
         }
 
         .sidebar h2 {
-            color: #fff;
+            color: #3cb371;
             font-size: 1.5em;
             margin-top: 0;
+            text-transform: uppercase;
+            font-family: 'Fira Code', monospace;
         }
 
         .sidebar a {
             display: block;
-            color: #fff;
+            color: #bb86fc;
             text-decoration: none;
             padding: 10px;
             font-size: 1.2em;
             margin-bottom: 10px;
-        }
-
-        .sidebar a:hover {
-            background-color: #3d8a5e; /* Cor de fundo ao passar o mouse */
             border-radius: 5px;
         }
 
+        .sidebar a:hover {
+            background-color: #9a4d9a;
+        }
+
         .main-content {
-            margin-left: 270px; /* Margem para dar espaço ao sidebar */
+            margin-left: 270px;
             padding: 20px;
             width: calc(100% - 270px);
         }
 
         h1 {
-            color: #4f9b6e; /* Verde suave inspirado na imagem */
+            color: #3cb371;
             text-align: center;
-            margin-bottom: 40px; /* Maior distância do topo */
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            font-family: 'Fira Code', monospace;
         }
 
         form {
-            background-color: #ffffff; /* Fundo neutro para o formulário */
-            color: #333; /* Texto preto para contraste no fundo claro */
+            background-color: #1a1a2e;
+            color: #e0e0e0;
             padding: 20px;
             border-radius: 10px;
             max-width: 400px;
             margin: 0 auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         label {
-            color: #4f9b6e; /* Verde suave para os rótulos */
+            color: #bb86fc;
             font-weight: bold;
         }
 
@@ -80,11 +85,11 @@
             width: calc(100% - 22px);
             padding: 10px;
             margin: 10px 0 20px 0;
-            border: 1px solid #ccc;
+            border: 1px solid #6272a4;
             border-radius: 5px;
             box-sizing: border-box;
-            background-color: #e6f4f3; /* Fundo claro para os campos de entrada */
-            color: #333; /* Texto preto para contraste */
+            background-color: #282a36;
+            color: #f8f8f2;
         }
 
         .checkbox-group {
@@ -93,25 +98,23 @@
 
         .checkbox-group label {
             display: inline-block;
-            margin-right: 15px;
-            vertical-align: middle;
-            color: #333; /* Texto preto para os checkboxes */
+            margin: 5px 10px;
+            color: #f0fff0;
         }
 
         .checkbox-group .group-title {
             display: block;
             margin-bottom: 10px;
             font-weight: bold;
-            color: #4f9b6e; /* Verde suave para os títulos */
+            color: #bb86fc;
         }
 
         input[type="checkbox"] {
-            margin-right: 5px;
-            accent-color: #4f9b6e; /* Verde suave para a seleção dos checkboxes */
+            accent-color: #3ebcba;
         }
 
         input[type="submit"] {
-            background-color: #4f9b6e; /* Verde suave para o botão */
+            background-color: #3cb371;
             color: #fff;
             padding: 10px 15px;
             border: none;
@@ -122,7 +125,7 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #388c6e; /* Verde um pouco mais escuro para hover */
+            background-color: #2a9d8f;
         }
     </style>
 </head>
@@ -130,7 +133,7 @@
 <body>
     <div class="sidebar">
         <h2>Menu</h2>
-        <a href="/">Catálogo de Jogos</a> <!-- Link para o catálogo de jogos -->
+        <a href="/">Catálogo de Jogos</a>
     </div>
     <div class="main-content">
         <h1>Cadastrar Novo Jogo</h1>
@@ -154,7 +157,7 @@
                 <label><input type="checkbox" name="genre" value="Esporte"> Esporte</label>
                 <label><input type="checkbox" name="genre" value="Corrida"> Corrida</label>
                 <label><input type="checkbox" name="genre" value="Puzzle"> Puzzle</label>
-                <label><input type="checkbox" name="genre" value="Tiro"> Tiro</label> <!-- Alterado -->
+                <label><input type="checkbox" name="genre" value="Tiro"> Tiro</label>
                 <label><input type="checkbox" name="genre" value="Luta"> Luta</label>
             </div>
 
@@ -162,10 +165,10 @@
                 <span class="group-title">Plataformas:</span>
                 <label><input type="checkbox" name="platform" value="PlayStation"> PlayStation</label>
                 <label><input type="checkbox" name="platform" value="Xbox"> Xbox</label>
-                <label><input type="checkbox" name="platform" value="Nintendo Switch"> Nintendo Switch</label> <!-- Alterado -->
+                <label><input type="checkbox" name="platform" value="Nintendo Switch"> Nintendo Switch</label>
                 <label><input type="checkbox" name="platform" value="PC"> PC</label>
                 <label><input type="checkbox" name="platform" value="Mobile"> Mobile</label>
-                <label><input type="checkbox" name="platform" value="Steam"> Steam</label> <!-- Adicionado -->
+                <label><input type="checkbox" name="platform" value="Steam"> Steam</label>
             </div>
 
             <label for="launch_date">Data de Lançamento:</label>
@@ -176,9 +179,8 @@
 
         <script>
             document.getElementById('gameForm').addEventListener('submit', function (event) {
-                event.preventDefault(); // Impede o envio padrão do formulário
+                event.preventDefault();
 
-                // Coleta os dados do formulário
                 const formData = new FormData(this);
                 const data = {};
 
@@ -190,7 +192,6 @@
                     }
                 });
 
-                // Envia os dados no formato JSON
                 fetch('/register-game', {
                     method: 'POST',
                     headers: {
@@ -200,8 +201,8 @@
                 })
                 .then(response => response.json())
                 .then(result => {
-                    alert(result.message); // Exibe a mensagem de sucesso
-                    document.getElementById('gameForm').reset(); // Reseta o formulário
+                    alert(result.message);
+                    document.getElementById('gameForm').reset();
                 })
                 .catch(error => {
                     console.error('Erro:', error);
@@ -213,3 +214,8 @@
 </body>
 
 </html>
+
+
+
+
+
