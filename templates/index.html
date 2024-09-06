@@ -5,54 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Jogos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #d9f4f3; /* Cor de fundo do corpo ajustada */
-            font-family: Arial, sans-serif;
-            color: #333;
+            background-color: #121212;
+            font-family: 'Fira Code', monospace;
+            color: #e0e0e0;
             margin: 0;
             padding: 0;
             display: flex;
-            transition: margin-left 0.3s; /* Transição suave ao expandir a sidebar */
+            transition: margin-left 0.3s;
         }
 
         .sidebar {
             width: 250px;
-            background-color: #4f9b6e; /* Cor de fundo do sidebar */
+            background-color: #1a1a2e;
             padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
             position: fixed;
             height: 100vh;
             top: 0;
             left: 0;
             overflow-y: auto;
-            transition: width 0.3s; /* Transição suave ao expandir a sidebar */
+            transition: width 0.3s;
         }
 
         .sidebar h2 {
-            color: #fff;
+            color: #4f9b6e;
             font-size: 1.5em;
             margin-top: 0;
+            text-transform: uppercase;
         }
 
         .sidebar a {
             display: block;
-            color: #fff;
+            color: #bb86fc;
             text-decoration: none;
             padding: 10px;
             font-size: 1.2em;
             margin-bottom: 10px;
+            border-radius: 5px;
         }
 
         .sidebar a:hover {
-            background-color: #3d8a5e; /* Cor de fundo ao passar o mouse */
-            border-radius: 5px;
+            background-color: #9a4d9a;
         }
 
         .sidebar .expandable {
             display: none;
-            background-color: #3d8a5e; /* Cor do botão expandir */
-            color: #fff;
+            background-color: #1a1a2e;
+            color: #bb86fc;
             padding: 10px;
             border-radius: 5px;
             text-align: center;
@@ -60,7 +62,7 @@
         }
 
         .sidebar.expanded {
-            width: 500px; /* Largura expandida da sidebar */
+            width: 500px;
         }
 
         .sidebar.expanded .expandable {
@@ -68,21 +70,22 @@
         }
 
         .main-content {
-            margin-left: 270px; /* Margem para dar espaço ao sidebar */
+            margin-left: 270px;
             padding: 20px;
             width: calc(100% - 270px);
-            transition: margin-left 0.3s; /* Transição suave ao expandir a sidebar */
+            transition: margin-left 0.3s;
         }
 
         .main-content.expanded {
-            margin-left: 520px; /* Margem ajustada para quando a sidebar está expandida */
+            margin-left: 520px;
             width: calc(100% - 520px);
         }
 
         h1 {
-            color: #4f9b6e; /* Cor dos títulos ajustada */
+            color: #4f9b6e;
             text-align: center;
-            margin-bottom: 40px; /* Maior distância do topo */
+            margin-bottom: 40px;
+            text-transform: uppercase;
         }
 
         .card-container {
@@ -93,26 +96,27 @@
         }
 
         .card {
-            background-color: #ffffff; /* Fundo claro para os cards */
-            color: #333; /* Texto preto para contraste */
+            background-color: #282a36;
+            color: #e0e0e0;
             border-radius: 10px;
             padding: 15px;
             max-width: 300px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             text-align: center;
         }
 
         .card img {
             width: 100%;
-            height: 200px; /* Altura fixa para consistência */
-            object-fit: cover; /* Ajusta a imagem para cobrir o espaço */
+            height: 200px;
+            object-fit: cover;
             border-radius: 10px;
         }
 
         .card h2 {
-            color: #4f9b6e; /* Cor dos títulos dos cards ajustada */
-            font-size: 1.2em; /* Tamanho dos títulos */
+            color: #bb86fc;
+            font-size: 1.2em;
             margin: 10px 0;
+            text-transform: uppercase;
         }
 
         .card p {
@@ -121,11 +125,13 @@
 
         .card .price {
             font-weight: bold;
-            color: #4f9b6e; /* Cor dos preços ajustada */
+            color: Honeydew;
+            font-size: 1.1em;
         }
 
         .card .date {
-            color: #333;
+            color: #bb86fc;
+            font-size: 0.9em;
         }
     </style>
 </head>
@@ -141,7 +147,6 @@
     <div class="main-content" id="mainContent">
         <h1>Catálogo de Jogos</h1>
         <div class="card-container" id="gamesContainer">
-            <!-- Os cards dos jogos serão inseridos aqui pelo JavaScript -->
         </div>
     </div>
 
@@ -159,15 +164,14 @@
                 .then(response => response.json())
                 .then(games => {
                     const container = document.getElementById('gamesContainer');
-                    container.innerHTML = ''; // Limpa o conteúdo inicial
+                    container.innerHTML = '';
                     games.forEach(game => {
                         const card = document.createElement('div');
                         card.className = 'card';
                         card.innerHTML = `
                             <img src="${game.photo}" alt="${game.name}">
                             <h2>${game.name}</h2>
-                            <p class="price">R$ ${game.price.toFixed(2)}</p>
-                            <p class="date">Lançamento: ${new Date(game.launch_date).toLocaleDateString('pt-BR')}</p>
+                            <p class="price">R$ ${game.price.toFixed(2).replace('.', ',')}</p>
                         `;
                         container.appendChild(card);
                     });
@@ -181,3 +185,4 @@
 </body>
 
 </html>
+
