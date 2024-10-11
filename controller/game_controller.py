@@ -36,3 +36,13 @@ def register_game():
 def get_games():
     games = game_service.fetch_all_games()
     return jsonify(games), 200
+
+
+@game_controller.route('/delete-game/<int:game_id>', methods=['DELETE'])
+def delete_game(game_id):
+    result = game_service.delete_game(game_id)
+
+    if result:
+        return jsonify({'message': f'Jogo com ID {game_id} deletado com sucesso!'}), 200
+    else:
+        return jsonify({'error': f'Jogo com ID {game_id} não encontrado.'}), 404
