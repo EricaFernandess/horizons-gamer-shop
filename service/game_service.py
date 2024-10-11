@@ -14,3 +14,7 @@ class GameService:
     def fetch_all_games(self):
         games = self.repository.get_all_games()
         return games
+
+    def delete_game(self, game_id):
+        # Chama o repositório para deletar o jogo
+        return self.repository.delete_game(game_id)
