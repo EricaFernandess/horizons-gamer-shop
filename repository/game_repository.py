@@ -43,5 +43,12 @@ class GameRepository:
 
         return result
 
+    def delete_game(self, game_id):
+        cursor = self.conn.cursor()
+        cursor.execute('DELETE FROM games WHERE id = ?', (game_id,))
+        self.conn.commit()
+
+        return cursor.rowcount > 0  # Retorna True se uma linha foi deletada, caso contrário False
+
     def close_connection(self):
         self.conn.close()
