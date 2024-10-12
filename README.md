@@ -1,8 +1,9 @@
-# Horizons Gamer Shop
+<h1 align="center">👾 Horizons Gamer Shop 👾</h1>
 
 Horizons Gamer Shop é uma plataforma de jogos projetada para oferecer uma experiência diversificada e envolvente. O objetivo é criar um ambiente robusto e escalável onde os gamers possam explorar uma vasta seleção de jogos, desde lançamentos populares até títulos independentes e clássicos.
 
-## Funcionalidades
+
+<h3 align="center">Funcionalidades Desenvolvidas 🕹️</h2>
 
 ### Cadastro de Jogos
 - **Descrição:** Permite adicionar novos jogos ao catálogo.
