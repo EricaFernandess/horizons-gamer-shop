@@ -12,6 +12,10 @@ def index():
 def add_game():
     return render_template('add_game.html')
 
+@game_controller.route('/update-game', methods=['GET'])
+def update_game_form():
+    return render_template('update_game.html')
+
 @game_controller.route('/register-game', methods=['POST'])
 def register_game():
     data = request.get_json()
@@ -46,3 +50,29 @@ def delete_game(game_id):
         return jsonify({'message': f'Jogo com ID {game_id} deletado com sucesso!'}), 200
     else:
         return jsonify({'error': f'Jogo com ID {game_id} não encontrado.'}), 404
+
+@game_controller.route('/update-game/<int:game_id>', methods=['PUT'])
+def update_game(game_id):
+    data = request.get_json()
+
+    name = data.get('name')
+    photo = data.get('photo')
+    price = data.get('price')
+    genre = data.get('genre')
+    launch_date = data.get('launch_date')
+    platform = data.get('platform')
+
+    success = game_service.update_game(
+        game_id=game_id,
+        name=name,
+        photo=photo,
+        price=price,
+        genre=genre,
+        launch_date=launch_date,
+        platform=platform
+    )
+
+    if success:
+        return jsonify({"message": "Jogo atualizado com sucesso!"}), 200
+    else:
+        return jsonify({"message": "Jogo não encontrado ou nenhum campo para atualizar!"}), 404

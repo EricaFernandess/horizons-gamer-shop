@@ -50,5 +50,43 @@ class GameRepository:
 
         return cursor.rowcount > 0  # Retorna True se uma linha foi deletada, caso contrário False
 
+    def update_game(self, game_id, name=None, photo=None, price=None, genre=None, launch_date=None, platform=None):
+        cursor = self.conn.cursor()
+
+        # Cria uma query dinâmica para atualizar apenas os campos fornecidos
+        fields = []
+        values = []
+
+        if name is not None:
+            fields.append("name = ?")
+            values.append(name)
+        if photo is not None:
+            fields.append("photo = ?")
+            values.append(photo)
+        if price is not None:
+            fields.append("price = ?")
+            values.append(price)
+        if genre is not None:
+            fields.append("genre = ?")
+            values.append(json.dumps(genre))  # Converte lista para JSON string
+        if launch_date is not None:
+            fields.append("launch_date = ?")
+            values.append(launch_date)
+        if platform is not None:
+            fields.append("platform = ?")
+            values.append(json.dumps(platform))  # Converte lista para JSON string
+
+        if not fields:
+            return False  # Nenhum campo para atualizar
+
+        # Monta a query de atualização com os campos dinâmicos
+        query = f"UPDATE games SET {', '.join(fields)} WHERE id = ?"
+        values.append(game_id)
+
+        cursor.execute(query, values)
+        self.conn.commit()
+
+        return cursor.rowcount > 0  # Retorna True se uma linha foi atualizada, caso contrário False
+
     def close_connection(self):
         self.conn.close()
