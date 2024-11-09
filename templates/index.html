@@ -15,55 +15,39 @@
             margin: 0;
             padding: 0;
             display: flex;
-            transition: margin-left 0.3s;
         }
 
         .sidebar {
             width: 250px;
             background-color: #1a1a2e;
             padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
             position: fixed;
             height: 100vh;
             top: 0;
             left: 0;
             overflow-y: auto;
-            transition: width 0.3s;
         }
 
         .sidebar h2 {
             color: #4f9b6e;
             font-size: 1.5em;
-            margin-top: 0;
-            text-transform: uppercase;
         }
 
         .sidebar a {
-            display: block;
             color: #bb86fc;
             text-decoration: none;
             padding: 10px;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-
-        .sidebar a:hover {
-            background-color: #9a4d9a;
+            display: block;
         }
 
         .main-content {
             margin-left: 270px;
             padding: 20px;
-            width: calc(100% - 270px);
-            transition: margin-left 0.3s;
         }
 
         h1 {
             color: #4f9b6e;
             text-align: center;
-            margin-bottom: 40px;
-            text-transform: uppercase;
         }
 
         .card-container {
@@ -75,13 +59,11 @@
 
         .card {
             background-color: #282a36;
-            color: #e0e0e0;
             border-radius: 10px;
             padding: 15px;
             max-width: 300px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            text-align: center;
             position: relative;
+            text-align: center;
         }
 
         .card img {
@@ -91,35 +73,23 @@
             border-radius: 10px;
         }
 
-        .card h2 {
-            color: #bb86fc;
-            font-size: 1.2em;
-            margin: 10px 0;
-            text-transform: uppercase;
-        }
-
-        .card p {
-            margin: 10px 0;
-        }
-
-        .card .price {
-            font-weight: bold;
-            color: Honeydew;
-            font-size: 1.1em;
-        }
-
-        .card .date {
-            color: #bb86fc;
-            font-size: 0.9em;
-        }
-
-        .delete-icon {
+        .card .actions {
             position: absolute;
             bottom: 10px;
             right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-icon,
+        .delete-icon {
             color: #E6E6FA;
             font-size: 1.5em;
             cursor: pointer;
+        }
+
+        .edit-icon:hover {
+            color: #4f9b6e;
         }
 
         .delete-icon:hover {
@@ -136,7 +106,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 999;
             display: none;
         }
 
@@ -145,37 +114,82 @@
             padding: 20px;
             border-radius: 10px;
             text-align: center;
+            width: 400px;
+            overflow-y: auto; /* Permite o scroll dentro do modal se o conteúdo for grande */
+            max-height: 80vh; /* Limita a altura do modal */
         }
 
-        .popup h2 {
-            color: #4f9b6e;
-            margin-top: 0;
+        .popup input,
+        .popup select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
         }
 
         .popup button {
-            padding: 10px 20px;
+            padding: 10px;
             margin-top: 10px;
-            cursor: pointer;
-            border: none;
             border-radius: 5px;
+            cursor: pointer;
         }
 
-        .popup button#confirmDelete {
-            background-color: #8FBC8F;
+        .popup #confirmEdit {
+            background-color: #4f9b6e;
             color: #fff;
         }
 
-        .popup button#confirmDelete:hover {
-            background-color: #6da06d;
+        .popup #confirmEdit:hover {
+            background-color: #3e7e5a;
         }
 
-        .popup button#cancelDelete {
+        .popup #cancelEdit {
             background-color: #B22222;
             color: #fff;
         }
 
-        .popup button#cancelDelete:hover {
+        .popup #cancelEdit:hover {
             background-color: #8B0000;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-start;
+            max-width: 100%;
+        }
+
+        .checkbox-group label {
+            color: #e0e0e0;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .checkbox-group input {
+            margin-right: 5px;
+        }
+
+        .popup select,
+        .popup input[type="text"],
+        .popup input[type="number"],
+        .popup input[type="date"] {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Adicionando responsividade para o modal */
+        @media screen and (max-width: 600px) {
+            .popup {
+                width: 90%;
+            }
+
+            .checkbox-group label {
+                width: auto; /* Ajusta os checkboxes para ficarem lado a lado mesmo em telas pequenas */
+            }
         }
     </style>
 </head>
@@ -190,16 +204,50 @@
         <div class="card-container" id="gamesContainer"></div>
     </div>
 
-    <div class="popup-container" id="popupContainer">
+    <div class="popup-container" id="editPopupContainer">
         <div class="popup">
-            <h2>Tem certeza que deseja excluir este jogo?</h2>
-            <button id="confirmDelete">Confirmar</button>
+            <h2>Editar Jogo</h2>
+            <input type="text" id="editName" placeholder="Nome">
+            <input type="text" id="editPhoto" placeholder="URL da Foto">
+            <input type="number" id="editPrice" placeholder="Preço">
+            <div class="checkbox-group" id="editGenres">
+                <label><input type="checkbox" value="Ação"> Ação</label>
+                <label><input type="checkbox" value="Aventura"> Aventura</label>
+                <label><input type="checkbox" value="RPG"> RPG</label>
+                <label><input type="checkbox" value="Simulação"> Simulação</label>
+                <label><input type="checkbox" value="Estratégia"> Estratégia</label>
+                <label><input type="checkbox" value="Esporte"> Esporte</label>
+                <label><input type="checkbox" value="Corrida"> Corrida</label>
+                <label><input type="checkbox" value="Puzzle"> Puzzle</label>
+                <label><input type="checkbox" value="Tiro"> Tiro</label>
+                <label><input type="checkbox" value="Luta"> Luta</label>
+            </div>
+            <input type="date" id="editLaunchDate">
+            <div class="checkbox-group" id="editPlatforms">
+                <label><input type="checkbox" value="PlayStation"> PlayStation</label>
+                <label><input type="checkbox" value="Xbox"> Xbox</label>
+                <label><input type="checkbox" value="Nintendo Switch"> Nintendo Switch</label>
+                <label><input type="checkbox" value="PC"> PC</label>
+                <label><input type="checkbox" value="Mobile"> Mobile</label>
+                <label><input type="checkbox" value="Steam"> Steam</label>
+            </div>
+            <button id="confirmEdit">Salvar</button>
+            <button id="cancelEdit">Cancelar</button>
+        </div>
+    </div>
+
+    <div class="popup-container" id="deletePopupContainer">
+        <div class="popup">
+            <h2>Excluir Jogo</h2>
+            <p>Tem certeza que deseja excluir este jogo?</p>
+            <button id="confirmDelete">Excluir</button>
             <button id="cancelDelete">Cancelar</button>
         </div>
     </div>
 
     <script>
-        // Função para carregar os jogos
+        let currentGameId = null;
+
         function loadGames() {
             fetch('/games')
                 .then(response => response.json())
@@ -213,56 +261,86 @@
                             <img src="${game.photo}" alt="${game.name}">
                             <h2>${game.name}</h2>
                             <p class="price">R$ ${game.price.toFixed(2).replace('.', ',')}</p>
-                            <i class="fas fa-trash-alt delete-icon"></i>
+                            <div class="actions">
+                                <i class="fas fa-edit edit-icon"></i>
+                                <i class="fas fa-trash-alt delete-icon"></i>
+                            </div>
                         `;
                         container.appendChild(card);
 
+                        const editIcon = card.querySelector('.edit-icon');
+                        editIcon.addEventListener('click', () => openEditPopup(game));
+
                         const deleteIcon = card.querySelector('.delete-icon');
-                        deleteIcon.addEventListener('click', () => {
-                            document.getElementById('popupContainer').style.display = 'flex';
-
-                            // Manter referência do jogo a ser excluído
-                            document.getElementById('confirmDelete').onclick = () => {
-                                deleteGame(game.id);
-                            };
-                        });
+                        deleteIcon.addEventListener('click', () => openDeletePopup(game.id));
                     });
-                })
-                .catch(error => {
-                    console.error('Erro:', error);
-                    alert('Ocorreu um erro ao carregar os jogos.');
                 });
         }
 
-        // Função para deletar o jogo via API
-        function deleteGame(gameId) {
-            fetch(`/delete-game/${gameId}`, { method: 'DELETE' })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Jogo deletado com sucesso!');
-                        document.getElementById('popupContainer').style.display = 'none';
-                        loadGames(); // Atualiza a lista de jogos
-                    } else {
-                        throw new Error('Erro ao deletar o jogo.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro:', error);
-                    alert('Não foi possível deletar o jogo.');
-                });
+        function openEditPopup(game) {
+            document.getElementById('editName').value = game.name;
+            document.getElementById('editPhoto').value = game.photo;
+            document.getElementById('editPrice').value = game.price;
+            document.getElementById('editLaunchDate').value = game.launch_date;
+
+            document.querySelectorAll('#editGenres input').forEach(input => {
+                input.checked = game.genre.includes(input.value);
+            });
+
+            document.querySelectorAll('#editPlatforms input').forEach(input => {
+                input.checked = game.platform.includes(input.value);
+            });
+
+            currentGameId = game.id;
+            document.getElementById('editPopupContainer').style.display = 'flex';
         }
 
-        document.getElementById('cancelDelete').addEventListener('click', () => {
-            document.getElementById('popupContainer').style.display = 'none';
+        function openDeletePopup(gameId) {
+            currentGameId = gameId;
+            document.getElementById('deletePopupContainer').style.display = 'flex';
+        }
+
+        document.getElementById('confirmEdit').addEventListener('click', () => {
+            const editedGame = {
+                id: currentGameId,
+                name: document.getElementById('editName').value,
+                photo: document.getElementById('editPhoto').value,
+                price: parseFloat(document.getElementById('editPrice').value),
+                genre: Array.from(document.querySelectorAll('#editGenres input:checked')).map(checkbox => checkbox.value),
+                platform: Array.from(document.querySelectorAll('#editPlatforms input:checked')).map(checkbox => checkbox.value),
+                launch_date: document.getElementById('editLaunchDate').value
+            };
+
+            fetch(`/update-game/${currentGameId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(editedGame)
+            }).then(() => {
+                loadGames();
+                document.getElementById('editPopupContainer').style.display = 'none';
+            });
         });
 
-        document.addEventListener('DOMContentLoaded', loadGames);
+        document.getElementById('cancelEdit').addEventListener('click', () => {
+            document.getElementById('editPopupContainer').style.display = 'none';
+        });
+
+        document.getElementById('confirmDelete').addEventListener('click', () => {
+            fetch(`/delete-game/${currentGameId}`, { method: 'DELETE' })
+                .then(() => {
+                    loadGames();
+                    document.getElementById('deletePopupContainer').style.display = 'none';
+                });
+        });
+
+        document.getElementById('cancelDelete').addEventListener('click', () => {
+            document.getElementById('deletePopupContainer').style.display = 'none';
+        });
+
+        loadGames();
     </script>
 </body>
 
 </html>
-
-
-
-
-
