@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Jogos</title>
+    <title>CATÁLOGO DE JOGOS</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -48,6 +48,7 @@
         h1 {
             color: #4f9b6e;
             text-align: center;
+            text-transform: uppercase;
         }
 
         .card-container {
@@ -88,6 +89,25 @@
             cursor: pointer;
         }
 
+        /* pop up referente ao modal de deletar jogo */
+        .popup #confirmDelete {
+            background-color: #4f9b6e;
+            color: #fff;
+        }
+
+        .popup #confirmDelete:hover {
+            background-color: #3e7e5a;
+        }
+
+        .popup #cancelDelete {
+            background-color: #B22222;
+            color: #fff;
+        }
+
+        .popup #cancelDelete:hover {
+            background-color: #8B0000;
+        }
+
         .edit-icon:hover {
             color: #4f9b6e;
         }
@@ -110,15 +130,47 @@
         }
 
         .popup {
-            background-color: #333;
+            background-color: #1a1a2e;
             padding: 20px;
             border-radius: 10px;
             text-align: center;
             width: 400px;
-            overflow-y: auto; /* Permite o scroll dentro do modal se o conteúdo for grande */
-            max-height: 80vh; /* Limita a altura do modal */
+            overflow-y: auto;
+            max-height: 80vh;
         }
 
+        .popup input[type="text"],
+        .popup input[type="number"],
+        .popup input[type="date"],
+        .popup select,
+        .popup textarea {
+            background-color: #282a36;
+            border: 1px solid #5e6d9c;
+            color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            font-size: 1em;
+            width: 100%;
+}
+
+        .popup h2 {
+            color: #4f9b6e;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-transform: uppercase;
+        }
+
+        .popup label {
+            display: block;
+            text-align: left;
+            color: #bb86fc;
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-weight: bold;
+        }
         .popup input,
         .popup select {
             width: 100%;
@@ -135,6 +187,7 @@
             cursor: pointer;
         }
 
+        /* pop up referente ao modal de edição de jogo */
         .popup #confirmEdit {
             background-color: #4f9b6e;
             color: #fff;
@@ -173,6 +226,9 @@
             margin-right: 5px;
         }
 
+        input[type="checkbox"] {
+            accent-color: #3ebcba;
+        }
         .popup select,
         .popup input[type="text"],
         .popup input[type="number"],
@@ -181,14 +237,13 @@
             box-sizing: border-box;
         }
 
-        /* Adicionando responsividade para o modal */
         @media screen and (max-width: 600px) {
             .popup {
                 width: 90%;
             }
 
             .checkbox-group label {
-                width: auto; /* Ajusta os checkboxes para ficarem lado a lado mesmo em telas pequenas */
+                width: auto;
             }
         }
     </style>
@@ -207,9 +262,16 @@
     <div class="popup-container" id="editPopupContainer">
         <div class="popup">
             <h2>Editar Jogo</h2>
+            <label for="editName">Nome:</label>
             <input type="text" id="editName" placeholder="Nome">
+
+            <label for="editPhoto">Foto:</label>
             <input type="text" id="editPhoto" placeholder="URL da Foto">
+
+            <label for="editPrice">Preço (R$):</label>
             <input type="number" id="editPrice" placeholder="Preço">
+
+            <label for="editGenres">Gêneros:</label>
             <div class="checkbox-group" id="editGenres">
                 <label><input type="checkbox" value="Ação"> Ação</label>
                 <label><input type="checkbox" value="Aventura"> Aventura</label>
@@ -222,7 +284,11 @@
                 <label><input type="checkbox" value="Tiro"> Tiro</label>
                 <label><input type="checkbox" value="Luta"> Luta</label>
             </div>
+
+            <label for="editLaunchDate">Data de Lançamento:</label>
             <input type="date" id="editLaunchDate">
+
+            <label for="editPlatforms">Plataformas:</label>
             <div class="checkbox-group" id="editPlatforms">
                 <label><input type="checkbox" value="PlayStation"> PlayStation</label>
                 <label><input type="checkbox" value="Xbox"> Xbox</label>
@@ -231,7 +297,7 @@
                 <label><input type="checkbox" value="Mobile"> Mobile</label>
                 <label><input type="checkbox" value="Steam"> Steam</label>
             </div>
-            <button id="confirmEdit">Salvar</button>
+            <button id="confirmEdit">Confirmar</button>
             <button id="cancelEdit">Cancelar</button>
         </div>
     </div>
@@ -240,7 +306,7 @@
         <div class="popup">
             <h2>Excluir Jogo</h2>
             <p>Tem certeza que deseja excluir este jogo?</p>
-            <button id="confirmDelete">Excluir</button>
+            <button id="confirmDelete">Confirmar</button>
             <button id="cancelDelete">Cancelar</button>
         </div>
     </div>
