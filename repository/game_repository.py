@@ -86,15 +86,13 @@ class GameRepository:
         cursor.execute(query, values)
         self.conn.commit()
 
-        return cursor.rowcount > 0  # Retorna True se uma linha foi atualizada, caso contrário False
+        return cursor.rowcount > 0
 
     def get_game_by_name(self, name):
         cursor = self.conn.cursor()
-        # Busca pelo nome do jogo no banco de dados
         cursor.execute("SELECT * FROM games WHERE name LIKE ?", (f"%{name}%",))
         games = cursor.fetchall()
 
-        # Converte os resultados em um formato adequado
         result = []
         for game in games:
             game_dict = dict(game)
