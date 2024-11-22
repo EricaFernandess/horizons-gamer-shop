@@ -24,3 +24,7 @@ class GameService:
         plat_str = json.dumps(platform) if platform else None
 
         return self.repository.update_game(game_id, name, photo, price, genre_str, launch_date, plat_str)
+
+    def fetch_game_by_name(self, name):
+        games = self.repository.get_game_by_name(name)
+        return games

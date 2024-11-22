@@ -76,3 +76,12 @@ def update_game(game_id):
         return jsonify({"message": "Jogo atualizado com sucesso!"}), 200
     else:
         return jsonify({"message": "Jogo não encontrado ou nenhum campo para atualizar!"}), 404
+
+    @game_controller.route('/search-games', methods=['GET'])
+    def search_games():
+        game_name = request.args.get('name', '').lower()
+        if not game_name:
+            return jsonify([])
+
+        filtered_games = [game for game in games if game_name in game['name'].lower()]
+        return jsonify(filtered_games)

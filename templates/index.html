@@ -256,6 +256,10 @@
     </div>
     <div class="main-content">
         <h1>Catálogo de Jogos</h1>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar jogo por nome...">
+            <button id="searchButton">Buscar</button>
+        </div>
         <div class="card-container" id="gamesContainer"></div>
     </div>
 
@@ -405,7 +409,43 @@
             document.getElementById('deletePopupContainer').style.display = 'none';
         });
 
+        document.getElementById('searchButton').addEventListener('click', () => {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            fetch('/games')
+                .then(response => response.json())
+                .then(games => {
+                    const filteredGames = games.filter(game =>
+                        game.name.toLowerCase().includes(searchTerm)
+                    );
+
+                    const container = document.getElementById('gamesContainer');
+                    container.innerHTML = '';
+                    filteredGames.forEach(game => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.innerHTML = `
+                            <img src="${game.photo}" alt="${game.name}">
+                            <h2>${game.name}</h2>
+                            <p class="price">R$ ${game.price.toFixed(2).replace('.', ',')}</p>
+                            <div class="actions">
+                                <i class="fas fa-edit edit-icon"></i>
+                                <i class="fas fa-trash-alt delete-icon"></i>
+                            </div>
+                        `;
+                        container.appendChild(card);
+
+                        const editIcon = card.querySelector('.edit-icon');
+                        editIcon.addEventListener('click', () => openEditPopup(game));
+
+                        const deleteIcon = card.querySelector('.delete-icon');
+                        deleteIcon.addEventListener('click', () => openDeletePopup(game.id));
+                    });
+                });
+        });
+
         loadGames();
+
     </script>
 </body>
 
