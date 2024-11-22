@@ -7,6 +7,7 @@
     <title>CATÁLOGO DE JOGOS</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             background-color: #121212;
@@ -38,6 +39,26 @@
             text-decoration: none;
             padding: 10px;
             display: block;
+        }
+
+        /* Barra de buscar jogo */
+        .search-bar input {
+            height: 6px;
+            padding: 8px;
+            width: 300px;
+            padding: 12px;
+            border: 1px solid #8a8686;
+            border-radius: 5px;
+            background-color: #302c34;
+            color: #8a8686;
+            font-size: 16px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Separador entre a barra de busca */
+        .separator {
+            border-bottom: 1px solid #5e5959;
+            margin: 16px 0;
         }
 
         .main-content {
@@ -163,6 +184,10 @@
             text-transform: uppercase;
         }
 
+        .sidebar a:hover {
+            background-color: #9a4d9a;
+        }
+
         .popup label {
             display: block;
             text-align: left;
@@ -246,6 +271,8 @@
                 width: auto;
             }
         }
+
+
     </style>
 </head>
 
@@ -257,9 +284,11 @@
     <div class="main-content">
         <h1>Catálogo de Jogos</h1>
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Buscar jogo por nome...">
-            <button id="searchButton">Buscar</button>
-        </div>
+            <input type="text" id="searchInput" placeholder="Procurar jogo...">
+            <button id="searchButton">
+                <i class="fas fa-search"></i> <!-- Ícone de lupa -->
+            </button>
+        <div class="separator"></div>
         <div class="card-container" id="gamesContainer"></div>
     </div>
 
