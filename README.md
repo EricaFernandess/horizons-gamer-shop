@@ -71,7 +71,9 @@ Obs: O usuário pode então alterar o nome e preço ou qualquer outro campo, cas
 
 - **Descrição:** Permite buscar jogos no catálogo com base no nome fornecido pelo usuário.
 - **Interface:** A pesquisa é realizada através de uma requisição GET para o endpoint `/search-games`, com o parâmetro `name` especificando o nome do jogo.
-- **Processo:** O usuário envia uma requisição GET para `/search-games`, passando o parâmetro `name` com o nome do jogo desejado. O microserviço utiliza o método fuzzy para filtrar os jogos que contêm o termo no nome. Se o parâmetro `name` estiver vazio, a resposta será uma lista vazia. A resposta retorna uma lista de jogos encontrados, com informações como nome, preço, plataforma e data de lançamento. Se ocorrer algum erro, será retornada uma mensagem de erro.
+- **Processo:** O usuário envia uma requisição GET para `/search-games`, passando o parâmetro `name` com o nome do jogo desejado. Se o parâmetro `name` estiver vazio, a resposta será uma lista vazia. A resposta retorna uma lista de jogos encontrados, com informações como nome, preço, plataforma e data de lançamento. Se ocorrer algum erro, será retornada uma mensagem de erro.
 
+ O microserviço utiliza o método fuzzy para filtrar os jogos que contêm o termo no nome. Esse método permite que a busca encontre uma correspondência aproximada ao invés de exata. 
 ![Catalogo de Jogos](pesquisa_por_nome.png)
 ![Catalogo de Jogos](pesquisa_por_nome1.png)
+
